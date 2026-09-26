@@ -1,0 +1,31 @@
+{
+    "$help": "Windows Terminal fragment from terminal-kit. install.ps1 copies it to %LOCALAPPDATA%\\Microsoft\\Windows Terminal\\Fragments\\terminal-kit\\. Colors match the palette in profile.d\\20-colors.ps1.",
+    "schemes": [
+        {
+            "name": "Terminal Kit",
+
+            "background": "#161C24",
+            "foreground": "#D8DEE9",
+            "cursorColor": "#62D6E8",
+            "selectionBackground": "#2A3A4A",
+
+            "black": "#2A3440",
+            "red": "#F2726F",
+            "green": "#8FD97A",
+            "yellow": "#E8C46A",
+            "blue": "#6EA8FE",
+            "purple": "#C79BF0",
+            "cyan": "#62D6E8",
+            "white": "#D8DEE9",
+
+            "brightBlack": "#6B7684",
+            "brightRed": "#FF9895",
+            "brightGreen": "#AAE69A",
+            "brightYellow": "#F2D58A",
+            "brightBlue": "#92BEFF",
+            "brightPurple": "#D9B8F7",
+            "brightCyan": "#8AE4F0",
+            "brightWhite": "#F2F4F8"
+        }
+    ]
+}

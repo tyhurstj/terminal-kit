@@ -1,0 +1,9 @@
+# Backups install.ps1 or an editor might leave behind
+*.bak
+*.before-terminal-kit_*
+
+# Transcripts never belong in this repo (they live in Documents\Programming\Terminal_Transcripts)
+*transcript*.txt
+
+# Python
+__pycache__/

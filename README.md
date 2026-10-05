@@ -1,8 +1,19 @@
 # terminal-kit
 
-James's PowerShell 7 + Windows Terminal + Python REPL setup, as a repo — so it can be
-read, versioned, reused on another machine, and pulled into lessons. Everything is
-**user-scope**: nothing here needs admin.
+[![PowerShell 7+](https://img.shields.io/badge/PowerShell-7%2B-5391FE?logo=powershell&logoColor=white)](https://learn.microsoft.com/powershell/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+A readable, user-scope PowerShell 7 + Windows Terminal + Python REPL setup. It is
+designed to be copied, studied, adapted, and reused on another Windows machine—no
+administrator rights required.
+
+This is an opinionated reference configuration, not a framework. Each `.ps1` file is
+written to be read as much as run: comments explain the engineering trade-offs and are
+intended to be useful in a classroom or for someone learning PowerShell.
+
+> **Privacy note:** The optional transcript feature records terminal output. Review the
+> [Transcripts](#transcripts) section before enabling it, and never commit transcripts,
+> credentials, or other private material.
 
 Every `.ps1` file is written to be *read* as much as run: each block says why it exists,
 and the comments are meant to be lifted into class material.
@@ -99,46 +110,47 @@ Rule this creates: **no multi-line string in `profile.d` may contain a line star
 - **Privacy**: a transcript records everything printed, including tokens a command shows.
   Run `nolog` first. Or start a window with `$env:TERMKIT_NO_TRANSCRIPT = 1; pwsh`.
 
-## Where to look next — the wider landscape
+## The PowerShell terminal ecosystem
 
-Scouted 2026-09-25 (GitHub stars / last activity at that date). None of these are installed.
+`terminal-kit` intentionally keeps its own dependency footprint small. The projects below
+are public, open-source options worth considering alongside it; they are maintained by their
+respective communities and are **not** bundled or automatically installed by this repository.
+Check each project's documentation and license before adding it to your setup.
 
-**Prompts and looks**
-- [Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh) (23k★, active) and
-  [Starship](https://github.com/starship/starship) (60k★, active) — themed prompts, compiled
-  so they're fast. Starship's one config works in bash/zsh too. Worth comparing against the
-  hand-written prompt, which is the one to keep for teaching.
-- [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) — 450+ schemes
-  with ready Windows Terminal JSON; preview at windowsterminalthemes.dev.
-- [Terminal-Icons](https://github.com/devblackops/Terminal-Icons) — file icons in `ls`
-  (needs the Nerd Font, now installed). No commits since 2024.
-- [eza](https://github.com/eza-community/eza) — modern `ls` with icons, tree view, git status.
+| Need | Projects to explore | Why they fit a PowerShell-focused terminal |
+|---|---|---|
+| PowerShell foundation | [PowerShell](https://github.com/PowerShell/PowerShell), [PSReadLine](https://github.com/PowerShell/PSReadLine) | The shell and its interactive editing, history, prediction, and completion experience. |
+| Prompts and themes | [Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh), [Starship](https://github.com/starship/starship), [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) | Ready-made prompts and color schemes; Starship is useful when one prompt must work across several shells. |
+| Fuzzy finding and navigation | [fzf](https://github.com/junegunn/fzf), [PSFzf](https://github.com/kelleyma49/PSFzf), [zoxide](https://github.com/ajeetdsouza/zoxide), [carapace-bin](https://github.com/carapace-sh/carapace-bin) | Fast interactive pickers, learned directory jumping, and broad command completion. |
+| Files and search | [ripgrep](https://github.com/BurntSushi/ripgrep), [fd](https://github.com/sharkdp/fd), [bat](https://github.com/sharkdp/bat), [eza](https://github.com/eza-community/eza), [Terminal-Icons](https://github.com/devblackops/Terminal-Icons) | Better defaults for finding, reading, and listing files; icons require a Nerd Font. |
+| Git at the prompt | [posh-git](https://github.com/dahlbyk/posh-git), [delta](https://github.com/dandavison/delta) | Git-aware prompt/completion support and more readable diffs. |
+| PowerShell presentation | [PwshSpectreConsole](https://github.com/ShaunLawrie/PwshSpectreConsole), [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools) | More expressive terminal output and a broad set of scripting helpers. |
+| Windows terminal host | [Windows Terminal](https://github.com/microsoft/terminal), [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) | The terminal host and font glyphs used by many modern prompts and file-listing tools. |
 
-**Completion**
-- [carapace-bin](https://github.com/carapace-sh/carapace-bin) — completions for ~1,000 CLIs in
-  one binary. Would replace `60-completers.ps1`; check its load cost here first.
-- [inshellisense](https://github.com/microsoft/inshellisense) (Microsoft) — IDE-style popup
-  completion for 600+ commands. Needs Node.js.
-- [posh-git](https://github.com/dahlbyk/posh-git) — git subcommand/branch Tab completion.
-  No commits since 2024; import cost unmeasured.
+### Choosing additions deliberately
 
-**Everyday tools**
-- [delta](https://github.com/dandavison/delta) — side-by-side, highlighted `git diff`.
-- [PwshSpectreConsole](https://github.com/ShaunLawrie/PwshSpectreConsole) — tables, progress
-  bars, charts from PowerShell scripts; good for demos.
-- [PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools) — large admin toolbox.
+- Start with **PowerShell + PSReadLine**; this repository configures both.
+- Add **one** prompt system—either the hand-written prompt here, Oh My Posh, or Starship—so
+  startup cost and configuration ownership stay clear.
+- Test an optional module's import time before adding it to your profile. This repository
+  deliberately lazy-loads costly components to keep a new terminal responsive.
+- Prefer user-scope installs on managed Windows devices. Review each project's installation
+  instructions instead of copying commands from untrusted gists.
 
-**Python**
-- Python **3.13/3.14** rebuilt the REPL (multi-line editing, color; 3.14 adds syntax
-  highlighting). This PC has 3.12. `uv python install 3.14` adds it without admin.
-- [IPython](https://github.com/ipython/ipython) — `%timeit`, `obj?` help, autoreload.
-- [ptpython](https://github.com/prompt-toolkit/ptpython) — completion popups as you type.
-- [icecream](https://github.com/gruns/icecream) — `ic(x)` prints the expression *and* value;
-  great first debugging tool for students.
-- `uv tool install <name>` — isolated command-line tools (replaces pipx).
+## Contributing
 
-**Avoid**: ConsoleGuiTools (`Out-ConsoleGridView`) — archived June 2026.
-awesome-powershell — archived (still fine to browse). bpython — weak on Windows.
+Issues and pull requests are welcome. Before proposing a change, please keep these goals in
+mind:
+
+- Preserve the user-scope, no-admin installation path.
+- Keep startup work small; defer expensive integrations until they are actually used.
+- Write comments for a reader learning PowerShell, not only for someone maintaining the code.
+- Never commit transcripts, backups, credentials, or machine-specific configuration.
+
+## License
+
+Released under the [MIT License](LICENSE). The linked projects above have their own licenses
+and policies; this license does not apply to them.
 
 ## Layout
 
